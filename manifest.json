@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+    "name": "Cookie Closer",
+    "short_name": "cookcl",
+    "description": "Test",
+    "version": "1.0",
+    "browser_action": {
+      "default_popup": "popup.html",
+      "default_title": "Test"
+    },
+    "background": {
+      "scripts": []
+    },
+    "permissions": [
+      "activeTab",
+      "tabs",
+      "contentSettings"
+    ],
+    "content_scripts": [
+      {
+        "js": [
+          "./src/js/content/content.js"
+        ],
+        "matches": [
+          "http://*/*",
+          "https://*/*"
+        ]
+      }
+    ]
+  }
