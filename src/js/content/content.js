@@ -1,18 +1,32 @@
 "use strict";
-function initContent() {
-    console.log("Cooky banner blocker active.");
+(function () {
+    var port = chrome.runtime.connect({
+        name: 'chr_cookie_c'
+    });
     var names = ['cookie', 'Cookie', 'COOKIE'];
-    hideElements(names);
+    sendMessage(hideElements(names));
     function hideElements(nameArray) {
-        nameArray.forEach(function (name, index) {
-            console.log('Looking for "', name, '", founded: ', document.querySelectorAll("[class*=" + name + "]").length);
+        var result = {
+            id: 'hideElements',
+            content: []
+        };
+        nameArray.forEach(function (name) {
+            result.content.push({
+                name: name,
+                count: document.querySelectorAll("[class*=" + name + "]").length
+            });
             document.querySelectorAll("[class*=" + name + "]").forEach(function (el, i) {
                 var e = el;
                 e.style.display = "none";
             });
         });
+        return result;
     }
     ;
-}
-initContent();
+    function sendMessage(msg) {
+        if (port) {
+            port.postMessage(msg);
+        }
+    }
+}());
 //# sourceMappingURL=content.js.map

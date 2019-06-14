@@ -14,7 +14,8 @@
     "sourceRoot": "./src/ts",                      /* Specify the location where debugger should locate TypeScript files instead of source locations. */
     "preserveConstEnums": true,
     "baseUrl": "./src/ts",
-    "rootDirs": ["./src/ts/background", "./src/ts/content", "./src/ts/popup"]
+    "rootDirs": ["./src/ts/background", "./src/ts/content", "./src/ts/popup"],
+    "types": ["chrome"]
   },
   "exclude": [
       "node_modules",
