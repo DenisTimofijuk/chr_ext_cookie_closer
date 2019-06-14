@@ -18,22 +18,22 @@
         }
 
         nameArray.forEach(function (name) {
-            var elemensByClassName: number = document.querySelectorAll("[class*=" + name + "]").length;
-            var count:number = 0;
+            var elemensByClassName = document.querySelectorAll("[class*=" + name + "]");
+            var count: number = 0;
 
-            if (elemensByClassName > 0) {
-                document.querySelectorAll("[class*=" + name + "]").forEach(function (el, i) {
-                    let e = el as HTMLElement;
-                    e.style.display = "none";
-                })
-                count = elemensByClassName;
-            } else {
-                var element = <HTMLElement>document.querySelector("[id*=" + name + "]");
-                if(element){
-                    element.style.display = "none";
-                    count++;
-                }                
+            elemensByClassName.forEach(function (el, i) {
+                let e = el as HTMLElement;
+                e.style.display = "none";
+            })
+
+            count += elemensByClassName.length;
+
+            var element = <HTMLElement>document.querySelector("[id*=" + name + "]");
+            if (element) {
+                element.style.display = "none";
+                count++;
             }
+
 
             result.content.push({
                 name: name,
@@ -44,6 +44,11 @@
 
         return result;
     };
+
+    setTimeout(function () {
+        console.log("setTimeout")
+        sendMessage(hideElements(names));
+    }, 2000);
 
     function sendMessage(msg: Message): void {
         if (port) {
