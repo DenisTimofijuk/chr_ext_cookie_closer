@@ -11,28 +11,42 @@
 
     sendMessage(hideElements(names));
 
-    function hideElements(nameArray: Array<CookieNames>):Message {
+    function hideElements(nameArray: Array<CookieNames>): Message {
         var result: Message = {
             id: 'hideElements',
             content: []
         }
 
         nameArray.forEach(function (name) {
+            var elemensByClassName: number = document.querySelectorAll("[class*=" + name + "]").length;
+            var count:number = 0;
+
+            if (elemensByClassName > 0) {
+                document.querySelectorAll("[class*=" + name + "]").forEach(function (el, i) {
+                    let e = el as HTMLElement;
+                    e.style.display = "none";
+                })
+                count = elemensByClassName;
+            } else {
+                var element = <HTMLElement>document.querySelector("[id*=" + name + "]");
+                if(element){
+                    element.style.display = "none";
+                    count++;
+                }                
+            }
+
             result.content.push({
                 name: name,
-                count: document.querySelectorAll("[class*=" + name + "]").length
+                count: count
             });
-            document.querySelectorAll("[class*=" + name + "]").forEach(function (el, i) {
-                let e = el as HTMLElement;
-                e.style.display = "none";
-            })
+
         })
 
         return result;
     };
 
-    function sendMessage(msg:Message):void{
-        if(port){
+    function sendMessage(msg: Message): void {
+        if (port) {
             port.postMessage(msg);
         }
     }

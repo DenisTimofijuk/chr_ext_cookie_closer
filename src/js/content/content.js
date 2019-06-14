@@ -11,13 +11,25 @@
             content: []
         };
         nameArray.forEach(function (name) {
+            var elemensByClassName = document.querySelectorAll("[class*=" + name + "]").length;
+            var count = 0;
+            if (elemensByClassName > 0) {
+                document.querySelectorAll("[class*=" + name + "]").forEach(function (el, i) {
+                    var e = el;
+                    e.style.display = "none";
+                });
+                count = elemensByClassName;
+            }
+            else {
+                var element = document.querySelector("[id*=" + name + "]");
+                if (element) {
+                    element.style.display = "none";
+                    count++;
+                }
+            }
             result.content.push({
                 name: name,
-                count: document.querySelectorAll("[class*=" + name + "]").length
-            });
-            document.querySelectorAll("[class*=" + name + "]").forEach(function (el, i) {
-                var e = el;
-                e.style.display = "none";
+                count: count
             });
         });
         return result;
