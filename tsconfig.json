@@ -5,16 +5,27 @@
     "lib": ["dom", "es5"],                             /* Specify library files to be included in the compilation. */
     "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
     "sourceMap": true,                     /* Generates corresponding '.map' file. */
-    //"outFile": "./demoMain.js",                       /* Concatenate and emit output to single file. */
+    //"outFile": "./src/js/api.js",                       /* Concatenate and emit output to single file. */
     "outDir": "./src/js",
-    //"rootDir": "./src/ts",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "rootDir": "./src/ts",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     "removeComments": true,                /* Do not emit comments to output. */
     "strict": true,                           /* Enable all strict type-checking options. */
     "esModuleInterop": true,                   /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "sourceRoot": "./src/ts",                      /* Specify the location where debugger should locate TypeScript files instead of source locations. */
     "preserveConstEnums": true,
-    "baseUrl": "./src/ts",
-    "rootDirs": ["./src/ts/background", "./src/ts/content", "./src/ts/popup"],
+    "baseUrl": "./src",
+    "paths":{
+      "*": [
+        "background", 
+        "content",
+        "popup"
+      ]
+    },
+    "rootDirs": [
+      "./src/ts/background", 
+      "./src/ts/content", 
+      "./src/ts/popup"
+    ],
     "types": ["chrome"]
   },
   "exclude": [

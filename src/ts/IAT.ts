@@ -11,3 +11,21 @@ interface Message {
     id: string,
     content: Array<CookieContent> 
 }
+
+interface ICallback {
+    (result:RequestMessage): void;
+}
+
+interface ContCallback {
+    (result:Message): void;
+}
+
+interface MsgPopUp{
+    initOnMessage(callback: ICallback):void;
+    sendMsg(msg:Message):void;
+}
+
+interface MsgContent{
+    initOnMessage(callback: ContCallback):void;
+    sendMsg(msg:Message):void;
+}

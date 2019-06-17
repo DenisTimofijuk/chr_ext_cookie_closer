@@ -8,14 +8,14 @@
     };
     chrome.runtime.onConnect.addListener(function (port) {
         if (port.name == 'chr_cookie_c') {
-            contentPort = port;
-            contentPort.onMessage.addListener(function (msg) {
+            contentPort = new msgContent.init(port);
+            contentPort.initOnMessage(function (msg) {
                 contentMsgHandler(msg);
             });
         }
         else if (port.name == 'chr_cookie_p') {
-            popUpPort = port;
-            popUpPort.onMessage.addListener(function (msg) {
+            popUpPort = new msgPopUp.init(port);
+            popUpPort.initOnMessage(function (msg) {
                 requestHandler(msg);
             });
         }
@@ -23,14 +23,13 @@
     function contentMsgHandler(msg) {
         bgMemorie.id = msg.id;
         bgMemorie.content = msg.content;
-        sendMessageToPopUp(msg);
+        sendMessageToPopUp(bgMemorie);
     }
     function sendMessageToPopUp(msg) {
         try {
-            popUpPort.postMessage(msg);
+            popUpPort.sendMsg(msg);
         }
         catch (error) {
-            console.log('sendMessageToPopUp', error);
         }
     }
     function requestHandler(msg) {
